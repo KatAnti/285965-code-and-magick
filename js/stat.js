@@ -1,5 +1,27 @@
 'use strict';
 
+var findMaxTime = function(times) {
+  var max;
+  for(var i = 0; i < times.length; i++) {
+    var time = times[i];
+      if(time > max || !max){
+        max = time;
+      }
+  };
+  return max;
+};
+
+var drawBars = function(params, times, names, i, ctx){
+  ctx.fillStyle = (names[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : 'rgba(2, 14, 134, '+Math.random()+')';
+  ctx.fillRect(params.initialX + params.indent * i, params.initialY + params.histogramHeight - params.barHeight, params.barWidth, params.barHeight);
+}
+
+var drawText = function(params, times, names, i, ctx){
+  ctx.fillStyle = 'black';
+  ctx.fillText(names[i], params.initialX + params.indent * i, params.initialY + params.histogramHeight + 20);
+  ctx.fillText(times[i].toFixed(0), params.initialX + params.indent * i, params.initialY + params.histogramHeight - params.barHeight - 10);
+}
+
 window.renderStatistics = function(ctx, names, times) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.fillRect(110, 20, 420, 270);
@@ -12,31 +34,19 @@ window.renderStatistics = function(ctx, names, times) {
   ctx.fillText('Ура вы победили!', 230, 40);
   ctx.fillText('Список результатов:', 220, 60);
 
-  var max = -1;
-  for(var i = 0; i < times.length; i++) {
-    var time = times[i];
-      if(time > max){
-        max = time;
-      }
+  var max = findMaxTime(times);
+  var params = {
+    histogramHeight: 150,
+    barWidth: 40,
+    indent: 90,
+    initialX: 150,
+    initialY: 100,
   };
-
-  var histogramHeight = 150;
-  var step = histogramHeight / (max - 0);
-  var barWidth = 40;
-  var indent = 90;
-  var initialX = 150;
-  var initialY = 100;
+  var step = params.histogramHeight / (max - 0);
 
   for(var i = 0; i < times.length; i++) {
-    var barHeight = times[i] * step;
-    if(names[i] === 'Вы'){
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else{
-      ctx.fillStyle = 'rgba(2, 14, 134, '+Math.random()+')';
-    }
-    ctx.fillRect(initialX + indent * i, initialY + histogramHeight - barHeight, barWidth, barHeight);
-    ctx.fillStyle = 'black';
-    ctx.fillText(names[i], initialX + indent * i, initialY + histogramHeight + 20);
-    ctx.fillText(times[i].toFixed(0), initialX + indent * i, initialY + histogramHeight - barHeight - 10);
+    params.barHeight = times[i] * step;
+    drawBars(params, times, names, i, ctx);
+    drawText(params, times, names, i, ctx);
   };
 }
