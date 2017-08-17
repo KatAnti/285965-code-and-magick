@@ -1,10 +1,10 @@
 'use strict';
 
 var findMaxTime = function(times) {
-  var max;
+  var max = -Infinity;
   for(var i = 0; i < times.length; i++) {
     var time = times[i];
-      if(time > max || !max){
+      if(time > max){
         max = time;
       }
   };
