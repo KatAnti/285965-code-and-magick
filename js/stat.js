@@ -4,10 +4,10 @@ var findMaxTime = function (times) {
   var max = -Infinity;
   for(var i = 0; i < times.length; i++) {
     var time = times[i];
-      if (time > max) {
-        max = time;
-      }
-  };
+    if (time > max) {
+      max = time;
+    }
+  }
   return max;
 };
 
@@ -49,4 +49,4 @@ window.renderStatistics = function (ctx, names, times) {
     drawBars(params, times, names, i, ctx);
     drawText(params, times, names, i, ctx);
   }
-}
+};
