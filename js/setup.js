@@ -13,23 +13,23 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template').c
 
 setup.classList.remove('hidden');
 
-var generateRandomNumber = function(min, max){
+var generateRandomNumber = function (min, max) {
   var random = min - 0.5 + Math.random() * (max - min + 1)
   random = Math.round(random);
   return random;
 };
 
-var generateRandomStringValue = function(list){
+var getRandomArrayValue = function (list) {
   var listLength = list.length -1;
   var result = generateRandomNumber(0, listLength);
   var value = list[result];
   return value;
 };
 
-var Wizard = function(){
-  this.name = generateRandomStringValue(NAMES) + ' ' + generateRandomStringValue(SURNAMES);
-  this.coatColor = generateRandomStringValue(COAT_COLORS);
-  this.eyesColor = generateRandomStringValue(EYES_COLORS);
+var Wizard = function () {
+  this.name = getRandomArrayValue(NAMES) + ' ' + generateRandomStringValue(SURNAMES);
+  this.coatColor = getRandomArrayValue(COAT_COLORS);
+  this.eyesColor = getRandomArrayValue(EYES_COLORS);
 };
 
 for(var i = 0; i < 4; i++){
@@ -37,13 +37,13 @@ for(var i = 0; i < 4; i++){
   wizardList.push(wizard);
 }
 
-for(var i = 0; i < wizardList.length; i++){
+for(i = 0; i < wizardList.length; i++){
   var wizardElement = similarWizardTemplate.cloneNode(true);
   wizardElement.querySelector('.setup-similar-label').textContent = wizardList[i].name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizardList[i].coatColor;
 
   fragment.appendChild(wizardElement);
-};
+}
 
 setupSimilarList.appendChild(fragment);
 
