@@ -7,14 +7,14 @@ var SURNAMES = ['да Марья','Верон','Мирабелла','Вальц'
 var COAT_COLORS = ['rgb(101, 137, 164)','rgb(241, 43, 107)','rgb(146, 100, 161)','rgb(56, 159, 117)','rgb(215, 210, 55)','rgb(0, 0, 0)'];
 var EYES_COLORS = ['black','red','blue','yellow','green'];
 var wizardList = [];
-var setupSimilarList = document.querySelector('.setup-similar-list')
+var setupSimilarList = document.querySelector('.setup-similar-list');
 var fragment = document.createDocumentFragment();
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
 setup.classList.remove('hidden');
 
 var generateRandomNumber = function (min, max) {
-  var random = min - 0.5 + Math.random() * (max - min + 1)
+  var random = min - 0.5 + Math.random() * (max - min + 1);
   random = Math.round(random);
   return random;
 };
@@ -27,7 +27,7 @@ var getRandomArrayValue = function (list) {
 };
 
 var Wizard = function () {
-  this.name = getRandomArrayValue(NAMES) + ' ' + generateRandomStringValue(SURNAMES);
+  this.name = getRandomArrayValue(NAMES) + ' ' + getRandomArrayValue(SURNAMES);
   this.coatColor = getRandomArrayValue(COAT_COLORS);
   this.eyesColor = getRandomArrayValue(EYES_COLORS);
 };
@@ -37,7 +37,7 @@ for(var i = 0; i < 4; i++){
   wizardList.push(wizard);
 }
 
-for(i = 0; i < wizardList.length; i++){
+for(i = 0; i < wizardList.length; i++) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
   wizardElement.querySelector('.setup-similar-label').textContent = wizardList[i].name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizardList[i].coatColor;
